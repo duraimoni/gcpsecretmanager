@@ -15,18 +15,29 @@ public class SecretController {
 	@Autowired
 	Environment env;
 
-	@Value("${passwords}")
-	private String password;
+	/*
+	 * @Value("${passwords}") private String password;
+	 * 
+	 * @Value("${cloudpass}") private String cloudpass;
+	 */
 
-	@Value("${cloudpass}")
+	@Value("${sm://passwords}")
+	private String mySecretValue;
+	
+
+	@Value("${sm://cloudpass}")
 	private String cloudpass;
+	
+	
+	@Value("${mypassword}")
+	private String myPassword;
 
 	@GetMapping("/{secretName}")
 	public String getSecre(@PathVariable String secretName) {
 
-		System.out.println(password + "=" + cloudpass);
+		System.out.println( mySecretValue+"="+cloudpass);
 
-		return password + "=" + cloudpass;
+		return cloudpass + "=" + mySecretValue+"="+myPassword;
 
 	}
 
